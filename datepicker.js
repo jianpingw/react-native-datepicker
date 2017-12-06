@@ -172,12 +172,16 @@ class DatePicker extends Component {
   }
 
   getTitleElement() {
-    const {date, placeholder, customStyles} = this.props;
+    const {date, placeholder, customStyles, displayFormat} = this.props;
 
     if (!date && placeholder) {
       return (<Text style={[Style.placeholderText, customStyles.placeholderText]}>{placeholder}</Text>);
     }
-    return (<Text style={[Style.dateText, customStyles.dateText]}>{this.getDateStr()}</Text>);
+    let dateStr = this.getDateStr();
+    if (displayFormat) {
+      dateStr = displayFormat(dateStr);
+    }
+    return (<Text style={[Style.dateText, customStyles.dateText]}>{dateStr}</Text>);
   }
 
   onDateChange(date) {
